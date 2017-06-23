@@ -27,11 +27,11 @@ find_path(  NUMA_INCLUDE_DIRS
               /usr/local/lib$
               /opt/local/lib )
 
-if( NUMA_LIBRARY AND NUMA_INCLUDE_DIRS)
+if( NUMA_LIBRARY AND NUMA_INCLUDE_DIRS )
     set( CMAKE_NUMA_LIBS ${NUMA_LIBRARY} )
     add_definitions( "-DPLATFORM_HAS_NUMA=1" )
     include_directories( ${NUMA_INCLUDE_DIRS} )
-else( NUMA_LIBRARY )
+else( NUMA_LIBRARY AND NUMA_INCLUDE_DIRS )
 ##
 # get machine type
 ##
@@ -47,7 +47,7 @@ else( NUMA_LIBRARY )
         ## needs NUMA but we don't have it
         message( FATAL_ERROR "You are compiling on a NUMA system, you must install libnuma" )
     endif( HASNUMA EQUAL 0 )
-endif( NUMA_LIBRARY )
+endif( NUMA_LIBRARY AND NUMA_INCLUDE_DIRS )
 
 endif( CMAKE_HOST_UNIX )
 
