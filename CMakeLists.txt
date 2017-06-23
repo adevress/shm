@@ -17,9 +17,20 @@ find_library( NUMA_LIBRARY
               /usr/lib
               /usr/local/lib
               /opt/local/lib )
-if( NUMA_LIBRARY )
+
+find_path(  NUMA_INCLUDE_DIRS
+            NAME numaif.h
+            PATHS
+              ${CMAKE_LIBRARY_PATH}$
+              $ENV{NUMA_PATH}/lib$
+              /usr/lib$
+              /usr/local/lib$
+              /opt/local/lib )
+
+if( NUMA_LIBRARY AND NUMA_INCLUDE_DIRS)
     set( CMAKE_NUMA_LIBS ${NUMA_LIBRARY} )
     add_definitions( "-DPLATFORM_HAS_NUMA=1" )
+    include_directories( ${NUMA_INCLUDE_DIRS} )
 else( NUMA_LIBRARY )
 ##
 # get machine type
